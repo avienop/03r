@@ -61,8 +61,8 @@ const App = () => {
                 />
               </div>
               <div className="relative top-19 md:top-43 lg:top-43 z-10 h-full flex flex-col items-center justify-center text-center px-4 text-white py-16">
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-4 text-black">Sweet Treats, Perfect Eats</h1>
-                <p className="text-xl md:text-3xl lg:text-5xl mb-6 text-black">20% Off Your First Order</p>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 text-black">Sweet Treats, Perfect Eats</h1>
+                <p className="text-xl md:text-3xl lg:text-4xl xl:text-5xl mb-6 text-black">20% Off Your First Order</p>
                 <div className="flex gap-4 justify-center">
                   <button className="px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-medium transition">
                     Order Now

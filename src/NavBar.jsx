@@ -1,59 +1,110 @@
-import React, { useState } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa'; // Import hamburger icons
+import { useState, useRef, useEffect } from 'react';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { NavLink, useLocation } from 'react-router-dom';
 
-const NavBar = () => {
+const NavBar=() =>{
   const [isOpen, setIsOpen] = useState(false);
+  const navRef = useRef(null);
+  const location = useLocation();
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  // Close menu when clicking outside, scrolling, or route changes
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleScroll = () => {
+      setIsOpen(false);
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  const navItems = [
+    { path: '/', name: 'Home' },
+    { path: '/blog', name: 'Blog' },
+    { path: '/contact', name: 'Contact' },
+    { path: '/services', name: 'Services' }
+  ];
 
   return (
-    // <nav className="bg-white text-gray-950 shadow-lg opacity-40">
-    <nav className="fixed w-full bg-white/20 backdrop-blur-md border-b border-white/10 shadow-lg z-50">
+    <nav 
+      ref={navRef}
+      className="fixed w-full bg-white/20 backdrop-blur-md border-b border-white/10 shadow-lg z-50"
+    >
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Logo/Brand - replace with your actual logo */}
-          <div className="flex-shrink-0">
-            <span className="text-xl font-bold">Shanghai Cafe</span>
+          {/* Logo */}
+          <NavLink 
+            to="/" 
+            className="text-xl font-bold hover:text-red-400 transition"
+          >
+            Shanghai Cafe
+          </NavLink>
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex gap-8">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                className={({ isActive }) => 
+                  `hover:text-red-400 transition ${isActive ? 'text-red-500 font-medium' : 'text-gray-800'}`
+                }
+              >
+                {item.name}
+              </NavLink>
+            ))}
           </div>
           
-          {/* Desktop Navigation - hidden on mobile */}
-          <div className="hidden md:flex space-x-8">
-            <a href="#" className="hover:text-red-400 transition">Home</a>
-            <a href="#" className="hover:text-red-400 transition">Blog</a>
-            <a href="#" className="hover:text-red-400 transition">Contact Us</a>
-            <a href="#" className="hover:text-red-400 transition">Services</a>
-          </div>
-          
-          {/* Mobile menu button - hidden on desktop */}
-          <div className="md:hidden">
-            <button
-              onClick={toggleMenu}
-              className="text-white focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? (
-                <FaTimes className="w-6 h-6" />
-              ) : (
-                <FaBars className="w-6 h-6" />
-              )}
-            </button>
-          </div>
+          {/* Mobile Toggle Button */}
+          <button
+            className="md:hidden text-gray-800"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
         </div>
       </div>
-      
-      {/* Mobile Menu - appears when hamburger is clicked */}
-      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
-        <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 bg-gray-800">
-          <a href="#" className="block px-3 py-2 hover:text-red-400">Home</a>
-          <a href="#" className="block px-3 py-2 hover:text-red-400">Blog</a>
-          <a href="#" className="block px-3 py-2 hover:text-red-400">Contact Us</a>
-          <a href="#" className="block px-3 py-2 hover:text-red-400">Services</a>
+
+      {/* Mobile Menu */}
+      <div 
+        className={`md:hidden transition-all duration-300 ease-in-out ${
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        } overflow-hidden`}
+      >
+        <div className="px-4 py-2 bg-white/95 backdrop-blur-md">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={({ isActive }) =>
+                `block py-2 transition ${
+                  isActive ? 'text-red-500 font-medium' : 'text-gray-800 hover:text-red-400'
+                }`
+              }
+            >
+              {item.name}
+            </NavLink>
+          ))}
         </div>
       </div>
     </nav>
   );
-};
-
+}
 export default NavBar;
