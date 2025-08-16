@@ -35,8 +35,8 @@ const NavBar=() =>{
 
   const navItems = [
     { path: '/', name: 'Home' },
-    { path: '/blog', name: 'Blog' },
-    { path: '/contact', name: 'Contact' },
+    { path: '/about', name: 'About Us' },
+    { path: '/ContactUs', name: 'Contact Us' },
     { path: '/services', name: 'Services' }
   ];
 
@@ -50,7 +50,7 @@ const NavBar=() =>{
           {/* Logo */}
           <NavLink 
             to="/" 
-            className="text-xl font-bold hover:text-red-400 transition"
+            className="text-xl font-bold hove:transition"
           >
             Shanghai Cafe
           </NavLink>
@@ -88,7 +88,7 @@ const NavBar=() =>{
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         } overflow-hidden`}
       >
-        <div className="px-4 py-2 bg-white/95 backdrop-blur-md">
+        <div className="px-4 py-2 bg-white/60 backdrop-blur-md">
           {navItems.map((item) => (
             <NavLink
               key={item.path}
@@ -101,8 +101,10 @@ const NavBar=() =>{
             >
               {item.name}
             </NavLink>
+            
           ))}
         </div>
+        
       </div>
     </nav>
   );
