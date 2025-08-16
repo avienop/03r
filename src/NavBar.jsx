@@ -9,7 +9,8 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 text-white shadow-lg">
+    // <nav className="bg-white text-gray-950 shadow-lg opacity-40">
+    <nav className="fixed w-full bg-white/20 backdrop-blur-md border-b border-white/10 shadow-lg z-50">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo/Brand - replace with your actual logo */}
