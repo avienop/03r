@@ -58,7 +58,7 @@ const Home = () => {
             className="w-full h-full object-cover object-center"
           />
         </div>
-        <div className="relative top-34 md:top-43 lg:top-43 z-10 h-full flex flex-col items-center justify-center text-center px-4 text-white py-16">
+        <div className="relative top-30 md:top-43 lg:top-43 z-10 h-full flex flex-col items-center justify-center text-center px-4 text-white py-16">
           <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 text-black">Wok-Seared Traditions Since 1928</h1>
           <p className="text-xl md:text-3xl lg:text-4xl xl:text-5xl mb-6 text-black">20% Off Your First Taste of History</p>
           <div className="flex gap-4 justify-center">
